@@ -7,7 +7,7 @@ from random import randint
 def insertUserEmailAndCellphone(user:UserModel):
     usersRepository.insertUserEmailAndCellphone(user)
     idUser:int = usersRepository.getUserIdbyEmail(user.email)
-    tokenService.insertNewToken(idUser)
+    tokenService.sendNewToken(idUser)
 
 def insertUserInfo(user:UserModel):
     usersRepository.updateUserInfo(user)

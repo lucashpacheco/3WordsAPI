@@ -3,13 +3,19 @@ from _3Words.Models.UserModel import UserModel
 from _3Words.Services import usersService
 from _3Words.Services import tokenService
 from _3Words.Models.responseModel import responseModel
+
 router = APIRouter()
 
 #region Login
 
 @router.get("/authenticate")
 async def login():
-    return  responseModel(200 , "teste" , None)
+    try:
+        #todo: mecanismo de login
+        return  responseModel(200 , "teste" , None)
+    except :
+        return  responseModel(300 , "teste" , None)
+
     
 #endregion
 
@@ -17,24 +23,40 @@ async def login():
 
 @router.post("/step1")
 async def saveUserEmailAndCellphone():
-    user = UserModel(email="teste@teste.com" , cellphone="+5511990205678")
-    usersService.insertUserEmailAndCellphone(user)
-    return  responseModel(200 , "teste" , None)
+    try:
+        user = UserModel(email="teste@teste.com" , cellphone="+5511990205678")
+        usersService.insertUserEmailAndCellphone(user)
+        return  responseModel(200 , "teste" , None)
+    except :
+        return  responseModel(500 , "teste" , None)
     
-@router.post("/step2")
-async def sendAuthToken():
-    tokenService.insertNewToken()
-    return  responseModel(200 , "teste" , None)
     
-@router.get("/step3")
+@router.get("/step2")
 async def validateAuthToken(userId:int , token:int):
-    tokenService.validateToken(userId , token)
-    return  responseModel(200 , "teste" , None)
-    
-@router.post("/step4")
+    try:
+        if tokenService.validateToken(userId , token):
+            return  responseModel(200 , "teste" , None)
+        return  responseModel(505 , "teste" , None)
+    except :
+        return  responseModel(501 , "teste" , None)
+
+@router.post("/step3")
 async def saveUserInfo():
-    user = UserModel.UserModel(name = "Lucas Pacheco" , surname= "Pacheco" , birthdate= "1995-06-29" , gender= "0" , postalCode= "01106010" )
-    usersService.insertNewUserPassword(user)
-    return  responseModel(200 , "teste" , None)
+    try:
+        user = UserModel.UserModel(name = "Lucas Pacheco" , surname= "Pacheco" , birthdate= "1995-06-29" , gender= "0" , postalCode= "01106010" )
+        usersService.insertNewUserPassword(user)
+        return  responseModel(200 , "teste" , None)
+    except :
+        return  responseModel(502 , "teste" , None)
+    
+    
+
+@router.post("/resendtoken")
+async def sendAuthToken():
+    try:
+        tokenService.sendNewToken()
+        return  responseModel(200 , "teste" , None)
+    except :
+        return  responseModel(503 , "teste" , None)
     
 #endregion

@@ -5,9 +5,10 @@ def generateNewToken():
     token = randint(10000 , 99999) 
     return token
 
-def insertNewToken(userId:int , token:int):
+def sendNewToken(userId:int , token:int):
     token = generateNewToken()
     tokenRepository.insertNewToken(token)
+    #todo: envio do token por email
 
 def validateToken(userId:int , token:int):
     actualToken = tokenRepository.getTokenByUserId(userId)
