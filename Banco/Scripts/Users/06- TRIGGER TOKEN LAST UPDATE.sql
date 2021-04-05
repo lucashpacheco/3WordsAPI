@@ -6,11 +6,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TRIGGER trg_lastUpdate
 ON [dbo].tbToken
-AFTER UPDATE , INSERT
+AFTER UPDATE 
 AS
 BEGIN
     UPDATE [dbo].tbUser
-    SET lastUpdateDate = GETDATE()
+    SET dt_lastUpdateDate = GETDATE()
     WHERE pk_IdUser IN (SELECT DISTINCT pk_IdUser FROM Inserted)
 
 END

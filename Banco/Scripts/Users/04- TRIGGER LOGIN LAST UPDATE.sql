@@ -5,7 +5,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TRIGGER trg_lastUpdate_login
 ON [dbo].tbLogin
-AFTER UPDATE , INSERT
+AFTER UPDATE
 AS
 BEGIN
     UPDATE [dbo].tbUser

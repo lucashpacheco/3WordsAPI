@@ -25,5 +25,5 @@ def updateUserInfo(user:UserModel):# , userName:str , userSurname:str , userBirt
     db.update("UPDATE tbUser SET userName = ? , userSurname = ? , dt_userBithdate = ?  , userGender = ? , userPostalCode = ?  WHERE pk_IdUser = ?" , (user.name , user.surname , user.birthdate , user.gender , user.postalCode , user.id)) #todo: atualiza as informações referentes ao usuario(nome , dt nasc , postal code ...)
 
 def insertNewUserPassword(login:LoginModel):
-    db.insert("") #todo: insere senha para novo usuario no cadastro
+    db.insert("INSERT INTO tbLogin (fk_IdUser ,userPassword , isActive) VALUES  (? ,? , 1 )" , login.userId , login.password) #todo: insere senha para novo usuario no cadastro
 

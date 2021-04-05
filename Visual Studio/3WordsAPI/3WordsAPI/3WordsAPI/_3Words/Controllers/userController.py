@@ -1,62 +1,92 @@
+from fastapi import FastAPI
 from fastapi import APIRouter
+from pydantic import BaseModel
 from _3Words.Models.UserModel import UserModel
 from _3Words.Services import usersService
 from _3Words.Services import tokenService
-from _3Words.Models.responseModel import responseModel
+from _3Words.Models.responseModel import ResponseModel
+from _3Words.Models.tokenModel import TokenModel
+from _3Words.Models.loginModel import LoginModel
+from fastapi.encoders import jsonable_encoder
+
 
 router = APIRouter()
 
-#region Login
+#region Login e Logout
+#region Login e Logout
 
 @router.get("/authenticate")
-async def login():
+async def login(loginPack:LoginModel) -> ResponseModel:
     try:
-        #todo: mecanismo de login
-        return  responseModel(200 , "teste" , None)
+        if usersService.login(loginPack):
+            return  ResponseModel(200 , "teste" , None)
+        return  ResponseModel(301 , "teste" , None)
     except :
-        return  responseModel(300 , "teste" , None)
+        return  ResponseModel(302 , "teste" , None)
 
+@router.get("/logout")
+async def logout() -> ResponseModel:
+    try:
+        if usersService.logout():
+            return  ResponseModel(200 , "teste" , None)
+        return  ResponseModel(301 , "teste" , None)
+    except :
+        return  ResponseModel(302 , "teste" , None)
+    
     
 #endregion
 
 #region Register
+#region Register
 
 @router.post("/step1")
-async def saveUserEmailAndCellphone():
+async def saveUserEmailAndCellphone(user:UserModel) -> ResponseModel:
     try:
-        user = UserModel(email="teste@teste.com" , cellphone="+5511990205678")
-        usersService.insertUserEmailAndCellphone(user)
-        return  responseModel(200 , "teste" , None)
+        # user = UserModel(email="teste@teste.com" , cellphone="+5511990205678")
+        user =  jsonable_encoder(user)
+        usersService.insertUserEmailAndCellphone(user.dict())
+        return  ResponseModel(200 , "teste" , None)
     except :
-        return  responseModel(500 , "teste" , None)
+        return  ResponseModel(500 , "teste" , None)
     
     
-@router.get("/step2")
-async def validateAuthToken(userId:int , token:int):
+@router.post("/step2")
+async def validateAuthToken(token:TokenModel) -> ResponseModel:
     try:
-        if tokenService.validateToken(userId , token):
-            return  responseModel(200 , "teste" , None)
-        return  responseModel(505 , "teste" , None)
+        token =  jsonable_encoder(token)
+        if tokenService.validateToken(token.userId , token.token):
+            return  ResponseModel(200 , "teste" , None)
+        return  ResponseModel(505 , "teste" , None)
     except :
-        return  responseModel(501 , "teste" , None)
+        return  ResponseModel(501 , "teste" , None)
 
 @router.post("/step3")
-async def saveUserInfo():
+async def saveUserInfo(user:UserModel) -> ResponseModel:
     try:
-        user = UserModel.UserModel(name = "Lucas Pacheco" , surname= "Pacheco" , birthdate= "1995-06-29" , gender= "0" , postalCode= "01106010" )
-        usersService.insertNewUserPassword(user)
-        return  responseModel(200 , "teste" , None)
+        # user = UserModel.UserModel(name = "Lucas Pacheco" , surname= "Pacheco" , birthdate= "1995-06-29" , gender= "0" , postalCode= "01106010" )
+        user =  jsonable_encoder(user)
+        usersService.insertUserInfo(user.dict())
+        return  ResponseModel(200 , "teste" , None)
     except :
-        return  responseModel(502 , "teste" , None)
+        return  ResponseModel(502 , "teste" , None)
     
+@router.post("/step4")
+async def saveNewPassword(user:UserModel) -> ResponseModel:
+    try:
+        # user = UserModel.UserModel(password = "123" , userId = 1 )
+        user =  jsonable_encoder(user)
+        usersService.insertNewUserPassword(user.dict())
+        return  ResponseModel(200 , "teste" , None)
+    except :
+        return  ResponseModel(502 , "teste" , None)
     
-
 @router.post("/resendtoken")
-async def sendAuthToken():
+async def sendAuthToken(token:TokenModel) -> ResponseModel:
     try:
-        tokenService.sendNewToken()
-        return  responseModel(200 , "teste" , None)
+        token =  jsonable_encoder(token)
+        tokenService.sendNewToken(token.userId , token.token)
+        return  ResponseModel(200 , "teste" , None)
     except :
-        return  responseModel(503 , "teste" , None)
+        return  ResponseModel(503 , "teste" , None)
     
 #endregion

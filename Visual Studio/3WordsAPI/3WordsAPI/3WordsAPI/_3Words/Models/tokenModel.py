@@ -1,11 +1,12 @@
 from pydantic import BaseModel
+from datetime import datetime
 
-class LoginModel(BaseModel):
+
+class TokenModel(BaseModel):
     """description of class"""
     userId:int = None
-    email:str = None
-    password:str = None
-    isActive:bool = None
+    token:int = None
+    dt_emailTokenExprirated:datetime = None
 
     def __init__(self, **kwargs):
         for key , value in kwargs.items():

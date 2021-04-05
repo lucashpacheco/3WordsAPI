@@ -1,4 +1,4 @@
-class responseModel(object):
+class ResponseModel(object):
     """Response Model returns the response in the pattern of API response"""
     status:int
     message:str

@@ -1,6 +1,7 @@
+from pydantic import BaseModel
 from datetime import datetime
 
-class UserModel(object):
+class UserModel(BaseModel):
     """User Model contains user properties"""
 
     id:int = None

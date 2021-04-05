@@ -39,6 +39,7 @@
     <Compile Include="_3Words\Data\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_3Words\Models\tokenModel.py" />
     <Compile Include="_3Words\Models\loginModel.py">
       <SubType>Code</SubType>
     </Compile>
@@ -49,6 +50,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_3Words\Models\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_3Words\Services\emailService.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_3Words\Services\tokenService.py">
