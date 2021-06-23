@@ -13,16 +13,20 @@ def returnConnection():
     Receive the query with parameters
     Like: "selectQuery string ... WHERE ( ? , ? , ?)" , (param1 , param2 , param3 ,...)
 """
-def select(selectQuery:str , parameters:tuple = None):
+def select(selectQuery:str , parameters:tuple = None , fetchone:bool = False):
     conexao =  returnConnection()
     cursor = conexao.cursor()
-    return cursor.execute(selectQuery )
-
+    if parameters != None: 
+        result =  cursor.execute(selectQuery ,parameters)
+        return result
+    else:
+        result =  cursor.execute(selectQuery)
+        return result
 """
     Receive the query with parameters
     Like: "insertQuery string ... VALUES ( ? , ? , ?)" , (param1 , param2 , param3 ,...)
 """
-def insert(insertQuery:str, parameters:tuple = None):
+def insert(insertQuery:str, parameters:tuple):
     conexao =  returnConnection()
     cursor = conexao.cursor()
     cursor.execute(insertQuery, parameters)
@@ -32,7 +36,7 @@ def insert(insertQuery:str, parameters:tuple = None):
     Receive the query with parameters
     Like: "updateQuery string ... SET x = ? , y = ? , z = ?)" , (param1 , param2 , param3 ,...)
 """
-def update(updateQuery:str, parameters:tuple = None):
+def update(updateQuery:str, parameters:tuple):
     conexao =  returnConnection()
     cursor = conexao.cursor()
     cursor.execute(updateQuery , parameters)

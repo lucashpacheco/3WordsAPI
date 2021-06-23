@@ -39,6 +39,15 @@
     <Compile Include="_3Words\Data\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_3Words\Models\requestWordsModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_3Words\Models\speechToTextModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_3Words\Models\textToSpeechModel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_3Words\Models\tokenModel.py" />
     <Compile Include="_3Words\Models\loginModel.py">
       <SubType>Code</SubType>
@@ -49,10 +58,16 @@
     <Compile Include="_3Words\Models\userModel.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_3Words\Models\wordModel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_3Words\Models\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_3Words\Services\emailService.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="_3Words\Services\speechService.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_3Words\Services\tokenService.py">

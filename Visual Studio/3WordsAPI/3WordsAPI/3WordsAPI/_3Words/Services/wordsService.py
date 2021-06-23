@@ -31,10 +31,10 @@ def translateWord(target:str):
         translatedWord = translationService.translateText(word, target)
     return { word : translatedWord } 
 
-def wordsPackMaker():
+def wordsPackMaker(fromLang:str , toLang:str , subject:str = None , userId:int = None):
     words = []
     while len(words) < 3:
-        word = translateWord('es')
+        word = translateWord(toLang)
         words.append(word)
     return words
 

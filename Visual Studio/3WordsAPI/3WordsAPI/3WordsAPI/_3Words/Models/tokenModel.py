@@ -8,11 +8,11 @@ class TokenModel(BaseModel):
     token:int = None
     dt_emailTokenExprirated:datetime = None
 
-    def __init__(self, **kwargs):
-        for key , value in kwargs.items():
-            for attr in self.__dir__():
-                if not attr.startswith("__"):
-                    if key == attr:
-                        setattr(self , key , value)
+    #def __init__(self, **kwargs):
+    #    for key , value in kwargs.items():
+    #        for attr in self.__dir__():
+    #            if not attr.startswith("__"):
+    #                if key == attr:
+    #                    setattr(self , key , value)
 
 

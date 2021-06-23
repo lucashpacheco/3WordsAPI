@@ -19,7 +19,7 @@ router = APIRouter()
 async def login(loginPack:LoginModel) -> ResponseModel:
     try:
         if usersService.login(loginPack):
-            return  ResponseModel(200 , "teste" , None)
+            return  ResponseModel(200 , "User logged in!" , None)
         return  ResponseModel(301 , "teste" , None)
     except :
         return  ResponseModel(302 , "teste" , None)
@@ -43,8 +43,8 @@ async def logout() -> ResponseModel:
 async def saveUserEmailAndCellphone(user:UserModel) -> ResponseModel:
     try:
         # user = UserModel(email="teste@teste.com" , cellphone="+5511990205678")
-        user =  jsonable_encoder(user)
-        usersService.insertUserEmailAndCellphone(user.dict())
+        #user =  jsonable_encoder(user)
+        usersService.insertUserEmailAndCellphone(user)
         return  ResponseModel(200 , "teste" , None)
     except :
         return  ResponseModel(500 , "teste" , None)
@@ -53,8 +53,8 @@ async def saveUserEmailAndCellphone(user:UserModel) -> ResponseModel:
 @router.post("/step2")
 async def validateAuthToken(token:TokenModel) -> ResponseModel:
     try:
-        token =  jsonable_encoder(token)
-        if tokenService.validateToken(token.userId , token.token):
+        #token =  jsonable_encoder(token)
+        if tokenService.validateToken(token):
             return  ResponseModel(200 , "teste" , None)
         return  ResponseModel(505 , "teste" , None)
     except :
