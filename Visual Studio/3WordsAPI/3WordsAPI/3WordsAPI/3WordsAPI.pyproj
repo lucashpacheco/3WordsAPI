@@ -61,6 +61,9 @@
     <Compile Include="_3Words\Models\wordModel.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="_3Words\Models\writingTestModel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="_3Words\Models\__init__.py">
       <SubType>Code</SubType>
     </Compile>

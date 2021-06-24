@@ -15,7 +15,7 @@ router = APIRouter()
 #region Login e Logout
 #region Login e Logout
 
-@router.get("/authenticate")
+@router.post("/authenticate")
 async def login(loginPack:LoginModel) -> ResponseModel:
     try:
         if usersService.login(loginPack):
@@ -24,8 +24,8 @@ async def login(loginPack:LoginModel) -> ResponseModel:
     except :
         return  ResponseModel(302 , "teste" , None)
 
-@router.get("/logout")
-async def logout() -> ResponseModel:
+@router.post("/logout")
+async def logout(loginPack:LoginModel) -> ResponseModel:
     try:
         if usersService.logout():
             return  ResponseModel(200 , "teste" , None)

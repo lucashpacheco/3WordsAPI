@@ -7,8 +7,8 @@ from _3Words.Models.loginModel import LoginModel
 #region Login e Logout
 
 def validateUser(loginPack:LoginModel) -> bool:
-    userId:int = usersRepository.getUserIdbyEmail(loginPack.email)[0]
-    password:str = usersRepository.getUserPassword(userId)[0]
+    userId:int = usersRepository.getUserIdbyEmail(loginPack.email)
+    password:str = usersRepository.getUserPassword(userId)
     if password == loginPack.password:
         usersRepository.updateIsLoggedFlagAndDate(userId , True)
         return True

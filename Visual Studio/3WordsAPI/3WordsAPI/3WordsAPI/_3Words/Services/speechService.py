@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from _3Words.Models.speechToTextModel import speechToTextModel as SpeechToText
 from gtts import gTTS
+from io import BytesIO
 
 
 def speechToText(file) -> str:
@@ -21,6 +22,8 @@ def processAnswer(answer:SpeechToText) -> bool:
     return false
 
 def textToSpeech(text:str):
+    mp3_fp = BytesIO()
     tts = gTTS(text)
     #tts.save('{}.mp3'.format(text))
-    return tts.write_to_fp(text+"MP3")
+    tts.write_to_fp(mp3_fp)
+    return tts
